@@ -19,6 +19,7 @@ public class Dado {
 
     }
 
+    // Getter: metodo o funcion que devuleve el valor de un atributo privado
     public int getNumero() {
         return numero;
     }

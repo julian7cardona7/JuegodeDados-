@@ -18,11 +18,11 @@ public class FrmJuego extends JFrame {
         String rutaImagen = "imagenes/3.jpeg";
         ImageIcon imgDado = new ImageIcon(getClass().getResource(rutaImagen));
 
-        JLabel lblDado1 = new JLabel(imgDado);
+        lblDado1 = new JLabel(imgDado);
         lblDado1.setBounds(10, 10, imgDado.getIconWidth(), imgDado.getIconHeight());
         add(lblDado1);
 
-        JLabel lblDado2 = new JLabel(imgDado);
+        lblDado2 = new JLabel(imgDado);
         lblDado2.setBounds(20 + 10 + imgDado.getIconWidth(), 10, imgDado.getIconWidth(), imgDado.getIconHeight());
         add(lblDado2);
 
@@ -36,18 +36,18 @@ public class FrmJuego extends JFrame {
         lblTituloCenas.setHorizontalAlignment(JLabel.CENTER);
         add(lblTituloCenas);
 
-        JLabel lblLanzamientos = new JLabel("0");
+        lblLanzamientos = new JLabel("0");
         lblLanzamientos.setBounds(30 + 2 * imgDado.getIconWidth(), 45, 100, 100);
-        lblLanzamientos.setFont(new Font("Impact",Font.BOLD, 72));
+        lblLanzamientos.setFont(new Font("Impact", Font.BOLD, 72));
         lblLanzamientos.setHorizontalAlignment(JLabel.RIGHT);
         lblLanzamientos.setBackground(new Color('0', 0, 0));
         lblLanzamientos.setForeground(new Color('0', 255, 0));
         lblLanzamientos.setOpaque(true);
         add(lblLanzamientos);
 
-          JLabel lblCenas = new JLabel("0");
+        lblCenas = new JLabel("0");
         lblCenas.setBounds(140 + 2 * imgDado.getIconWidth(), 45, 100, 100);
-        lblCenas.setFont(new Font("Impact",Font.BOLD, 72));
+        lblCenas.setFont(new Font("Impact", Font.BOLD, 72));
         lblCenas.setHorizontalAlignment(JLabel.RIGHT);
         lblCenas.setBackground(new Color('0', 0, 0));
         lblCenas.setForeground(new Color('0', 255, 0));
@@ -55,7 +55,7 @@ public class FrmJuego extends JFrame {
         add(lblCenas);
 
         JButton btnIniciar = new JButton("Iniciar");
-        btnIniciar.setBounds(10, 20 + imgDado.getIconHeight(),100, 25);
+        btnIniciar.setBounds(10, 20 + imgDado.getIconHeight(), 100, 25);
         add(btnIniciar);
 
         JButton btnLanzar = new JButton("Lanzar");
@@ -67,18 +67,49 @@ public class FrmJuego extends JFrame {
             IniciarLanzamientos();
 
         });
-        
-          btnLanzar.addActionListener(evento -> {
+
+        btnLanzar.addActionListener(evento -> {
             RealizarLanzamiento();
 
         });
     }
 
-    private void IniciarLanzamientos(){
+    // Variables globales
+    private JLabel lblDado1, lblDado2, lblLanzamientos, lblCenas;
+    private Dado dado1 = new Dado();
+    private Dado dado2 = new Dado();
+
+    private int lanzamientos, cenas;
+
+    private void IniciarLanzamientos() {
+
+        lanzamientos = 0;
+        lblLanzamientos.setText("0");
+
+        cenas = 0;
+        lblCenas.setText("0");
 
     }
 
-    private void RealizarLanzamiento(){
+    private void RealizarLanzamiento() {
+
+        // lanzar dados
+        dado1.Lanzar();
+        dado2.Lanzar();
+
+        // mostrar dados
+        dado1.mostrar(lblDado1);
+        dado2.mostrar(lblDado2);
+
+        // contar lanzamientos
+        lanzamientos++;
+        lblLanzamientos.setText(String.valueOf(lanzamientos));
+
+        // contar cenas
+        if (dado1.getNumero() + dado2.getNumero() >= 11) {
+            cenas++;
+            lblCenas.setText(String.valueOf(cenas));
+        }
 
     }
 }
